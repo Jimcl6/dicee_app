@@ -18,6 +18,21 @@ class _DicePageState extends State<DicePage> {
   int rightDiceNumber = 1;
 
   var winnerText = 'Welcome to Dicee App!';
+
+  void diceRoller() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) + 1;
+
+      if (leftDiceNumber > rightDiceNumber) {
+        winnerText = 'Player 1 wins!!';
+      } else {
+        winnerText = 'Player 2 wins!!';
+      }
+      // print('New number is now $leftDiceNumber');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,10 +66,18 @@ class _DicePageState extends State<DicePage> {
             Row(
               children: [
                 Expanded(
-                  child: Image.asset('images/dice-$leftDiceNumber.png'),
+                  child: TextButton(
+                      onPressed: () {
+                        diceRoller();
+                      },
+                      child: Image.asset('images/dice-$leftDiceNumber.png')),
                 ),
                 Expanded(
-                  child: Image.asset('images/dice-$rightDiceNumber.png'),
+                  child: TextButton(
+                      onPressed: () {
+                        diceRoller();
+                      },
+                      child: Image.asset('images/dice-$rightDiceNumber.png')),
                 ),
               ],
             ),
@@ -72,17 +95,7 @@ class _DicePageState extends State<DicePage> {
                         MaterialStatePropertyAll(Colors.yellow.shade700),
                   ),
                   onPressed: () {
-                    setState(() {
-                      leftDiceNumber = Random().nextInt(6) + 1;
-                      rightDiceNumber = Random().nextInt(6) + 1;
-
-                      if (leftDiceNumber > rightDiceNumber) {
-                        winnerText = 'Player 1 wins!!';
-                      } else {
-                        winnerText = 'Player 2 wins!!';
-                      }
-                      // print('New number is now $leftDiceNumber');
-                    });
+                    diceRoller();
                   },
                   child: Text(
                     'Roll Dice'.toUpperCase(),
@@ -98,7 +111,7 @@ class _DicePageState extends State<DicePage> {
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 35.0)),
+                            vertical: 15.0, horizontal: 34.0)),
                     backgroundColor:
                         MaterialStatePropertyAll(Colors.yellow.shade700),
                   ),
@@ -107,7 +120,7 @@ class _DicePageState extends State<DicePage> {
                       leftDiceNumber = 1;
                       rightDiceNumber = 1;
 
-                      winnerText = "roll the dice".toUpperCase();
+                      winnerText = "roll the dice!!".toUpperCase();
                     });
                   },
                   child: Text(
